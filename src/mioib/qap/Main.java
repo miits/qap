@@ -5,8 +5,10 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-        RandomPermutationGenerator generator = new RandomPermutationGenerator();
-        ArrayList<Integer> randomPermutation = generator.generate(26);
-        System.out.println(randomPermutation.toString());
+        TestInstanceGenerator instanceGenerator = new TestInstanceGenerator();
+        QAPInstance instance = instanceGenerator.getQAPInstance();
+        RandomPermutationGenerator permutationGenerator = new RandomPermutationGenerator();
+        ArrayList<Integer> assignment = permutationGenerator.generate(instance.getSize());
+
     }
 }
