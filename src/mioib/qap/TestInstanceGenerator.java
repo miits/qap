@@ -1,5 +1,7 @@
 package mioib.qap;
 
+import mioib.qap.model.QAPInstance;
+
 import java.util.Vector;
 
 public class TestInstanceGenerator {

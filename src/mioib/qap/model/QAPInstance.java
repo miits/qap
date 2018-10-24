@@ -1,4 +1,4 @@
-package mioib.qap;
+package mioib.qap.model;
 
 import java.util.Vector;
 

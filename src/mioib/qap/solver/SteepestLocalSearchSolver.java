@@ -1,8 +1,10 @@
-package mioib.qap;
+package mioib.qap.solver;
+
+import mioib.qap.model.QAPInstance;
 
 import java.util.ArrayList;
 
-public class SteepestLocalSearchAlgorithm {
+public class SteepestLocalSearchSolver {
     private QAPInstance instance;
     private ArrayList<Integer> assignment;
 
