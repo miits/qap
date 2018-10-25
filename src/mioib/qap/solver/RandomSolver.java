@@ -21,7 +21,7 @@ public class RandomSolver {
 
     public QAPSolution findSolution() {
         final long start = System.currentTimeMillis();
-        double bestCost = 999999999;
+        double bestCost = Double.MAX_VALUE;
         ArrayList<Integer> bestSolution = null;
         while (System.currentTimeMillis() - start < durationMillis) {
             final ArrayList<Integer> nextSolution = permutationGenerator.generate(instance.getSize());
