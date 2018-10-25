@@ -13,27 +13,24 @@ public class QAPInstance {
         this.distanceMatrix = distanceMatrix;
     }
 
+    /**
+     * facilities in matrix have facility-1 index (eq facility 26 is in 25 row)
+     */
+    public Double getFlowWeight(int facilityA, int facilityB) {
+        return flowMatrix.get(facilityA-1).get(facilityB-1);
+    }
+
+    /**
+     * locations in matrix have location-1 index (eq location 26 is in 25 row)
+     */
+    public Double getDistanceWeight(int locationA, int locationB) {
+        return distanceMatrix.get(locationA-1).get(locationB-1);
+    }
+
+
     public int getSize() {
         return size;
     }
 
-    public void setSize(int size) {
-        this.size = size;
-    }
 
-    public Vector<Vector<Double>> getFlowMatrix() {
-        return flowMatrix;
-    }
-
-    public void setFlowMatrix(Vector<Vector<Double>> flowMatrix) {
-        this.flowMatrix = flowMatrix;
-    }
-
-    public Vector<Vector<Double>> getDistanceMatrix() {
-        return distanceMatrix;
-    }
-
-    public void setDistanceMatrix(Vector<Vector<Double>> distanceMatrix) {
-        this.distanceMatrix = distanceMatrix;
-    }
 }

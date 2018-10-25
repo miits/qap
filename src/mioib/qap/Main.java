@@ -7,8 +7,7 @@ import mioib.qap.solver.RandomSolver;
 public class Main {
 
     public static void main(String[] args) {
-        TestInstanceGenerator instanceGenerator = new TestInstanceGenerator();
-        QAPInstance instance = instanceGenerator.getQAPInstance();
+        QAPInstance instance = TestInstanceGenerator.Bur26a();
         final RandomSolver randomSolver = new RandomSolver(instance, 1000 * 3);
         final QAPSolution solution = randomSolver.findSolution();
         System.out.println(solution.getCost());
