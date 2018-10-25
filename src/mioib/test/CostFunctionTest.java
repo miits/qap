@@ -27,7 +27,7 @@ class CostFunctionTest {
     @Test
     void shouldReturnCorrectCostForSimpleInstance() {
         //given
-        final double expectedCost = 285;
+        final double expectedCost = 177;
         final QAPInstance simpleInstance = TestInstanceGenerator.simpleInstance();
         final List<Integer> solution = Arrays.asList(1, 2, 3);
         //when

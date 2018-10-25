@@ -2,7 +2,6 @@ package mioib.qap;
 
 import mioib.qap.model.QAPInstance;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CostFunction {
@@ -13,11 +12,7 @@ public class CostFunction {
             for (int facilityB = 1; facilityB <= assignments.size(); facilityB++) {
                 int locationA = assignments.indexOf(facilityA) + 1;
                 int locationB = assignments.indexOf(facilityB) + 1;
-                try {
-                    cost += instance.getFlowWeight(facilityA, facilityB) * instance.getDistanceWeight(locationA, locationB);
-                }catch (Exception e){
-                   throw e;
-                }
+                cost += instance.getFlowWeight(facilityA, facilityB) * instance.getDistanceWeight(locationA, locationB);
             }
         }
         return cost;
