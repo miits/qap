@@ -7,7 +7,7 @@ public class RandomPermutationGenerator {
 
     public ArrayList<Integer> generate(int len) {
         ArrayList<Integer> permutation = new ArrayList<>();
-        for(int i = 0; i < len; i++) {
+        for(int i = 1; i <= len; i++) {
             permutation.add(i);
         }
         for(int i = 0; i < len - 1; i++) {

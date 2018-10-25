@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
         QAPInstance instance = TestInstanceGenerator.Bur26a();
-        final RandomSolver randomSolver = new RandomSolver(instance, 1000 * 3);
+        final RandomSolver randomSolver = new RandomSolver(instance, 1000 * 10);
         final QAPSolution solution = randomSolver.findSolution();
         System.out.println(solution.getCost());
     }
