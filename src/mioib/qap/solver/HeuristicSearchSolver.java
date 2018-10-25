@@ -3,11 +3,11 @@ package mioib.qap.solver;
 import mioib.qap.model.QAPInstance;
 import mioib.qap.model.QAPSolution;
 
-public class SteepestLocalSearchSolver {
+public class HeuristicSearchSolver {
 
     private final QAPInstance instance;
 
-    public SteepestLocalSearchSolver(QAPInstance instance) {
+    public HeuristicSearchSolver(QAPInstance instance) {
         this.instance = instance;
     }
 
