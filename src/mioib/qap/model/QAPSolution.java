@@ -14,4 +14,8 @@ public class QAPSolution {
     public double getCost() {
         return cost;
     }
+
+    public ArrayList<Integer> getAssignment() {
+        return assignment;
+    }
 }

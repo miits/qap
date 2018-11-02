@@ -78,7 +78,7 @@ public class TestInstanceGenerator {
     }
 
     public static QAPInstance simpleInstance() {
-        int size = 9;
+        int size = 3;
         Vector<Vector<Double>> flowMatrix = new Vector<>();
         flowMatrix.add(strToVector("1 2 3"));
         flowMatrix.add(strToVector("4 5 6"));
@@ -88,6 +88,21 @@ public class TestInstanceGenerator {
         distanceMatrix.add(strToVector("7 8 9"));
         distanceMatrix.add(strToVector("4 5 6"));
         distanceMatrix.add(strToVector("1 2 3"));
+
+        return new QAPInstance(size, flowMatrix, distanceMatrix);
+    }
+
+    public static QAPInstance simpleInstance2() {
+        int size = 3;
+        Vector<Vector<Double>> flowMatrix = new Vector<>();
+        flowMatrix.add(strToVector("0 1 2"));
+        flowMatrix.add(strToVector("1 0 3"));
+        flowMatrix.add(strToVector("2 3 0"));
+
+        Vector<Vector<Double>> distanceMatrix = new Vector<>();
+        distanceMatrix.add(strToVector("0 1 2"));
+        distanceMatrix.add(strToVector("1 0 1"));
+        distanceMatrix.add(strToVector("2 1 0"));
 
         return new QAPInstance(size, flowMatrix, distanceMatrix);
     }
