@@ -3,7 +3,9 @@ package mioib.qap;
 import mioib.qap.model.QAPInstance;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class NeighbourhoodFunction {
 
@@ -19,5 +21,16 @@ public class NeighbourhoodFunction {
             }
         }
         return neighbourhood;
+    }
+
+    public static ArrayList<Integer> randomNeighbour(List<Integer> permutation) {
+        final ArrayList<Integer> neighbour = new ArrayList<>(permutation);
+        int i = ThreadLocalRandom.current().nextInt(neighbour.size());
+        int j;
+        do{
+            j = ThreadLocalRandom.current().nextInt(neighbour.size());
+        }while(j == i);
+        Collections.swap(neighbour, i, j);
+        return neighbour;
     }
 }
