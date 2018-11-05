@@ -1,13 +1,13 @@
 package mioib.qap.solver;
 
-import mioib.qap.utils.CostFunction;
-import mioib.qap.utils.RandomPermutationGenerator;
 import mioib.qap.model.QAPInstance;
 import mioib.qap.model.QAPSolution;
+import mioib.qap.utils.CostFunction;
+import mioib.qap.utils.RandomPermutationGenerator;
 
 import java.util.ArrayList;
 
-public class RandomSolver implements Solver{
+public class RandomSolver implements Solver {
 
     private final QAPInstance instance;
     private final int durationMillis;
@@ -20,10 +20,14 @@ public class RandomSolver implements Solver{
     }
 
     public QAPSolution findSolution() {
+        long solutionsChecked = 0;
+        long stepsCount = 0;
         final long start = System.currentTimeMillis();
         double bestCost = Double.MAX_VALUE;
         ArrayList<Integer> bestSolution = null;
         while (System.currentTimeMillis() - start < durationMillis) {
+            solutionsChecked++;
+            stepsCount++;
             final ArrayList<Integer> nextSolution = permutationGenerator.generate(instance.getSize());
             final double nextSolutionCost = CostFunction.evaluate(instance, nextSolution);
             if (nextSolutionCost < bestCost) {
@@ -31,6 +35,11 @@ public class RandomSolver implements Solver{
                 bestSolution = nextSolution;
             }
         }
-        return new QAPSolution(bestCost, bestSolution);
+        return new QAPSolution(bestCost, bestSolution, this.durationMillis, solutionsChecked, stepsCount);
+    }
+
+    @Override
+    public String getName() {
+        return this.getClass().getSimpleName();
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class HeuristicSearchSolver implements Solver{
+public class HeuristicSearchSolver implements Solver {
 
     private final QAPInstance instance;
 
@@ -18,6 +18,11 @@ public class HeuristicSearchSolver implements Solver{
     }
 
     public QAPSolution findSolution() {
+        final long start = System.currentTimeMillis();
+        long solutionsChecked = 0;
+        long stepsCount = 0;
+
+
         final int[] result = new int[instance.getSize()];
         final List<Integer> restOfLocations = IntStream
                 .range(1, instance.getSize() + 1)
@@ -52,6 +57,7 @@ public class HeuristicSearchSolver implements Solver{
                     if (locA.equals(locB)) {
                         continue;
                     }
+
                     final Double distanceWeightAB = instance.getDistanceWeight(locA, locB);
                     final Double distanceWeightBA = instance.getDistanceWeight(locB, locA);
                     if (distanceWeightAB + distanceWeightBA < minDistance) {
@@ -62,7 +68,9 @@ public class HeuristicSearchSolver implements Solver{
                 }
             }
             result[minLocA - 1] = maxFacA;
+            stepsCount++;
             result[minLocB - 1] = maxFacB;
+            stepsCount++;
 
             restOfLocations.remove(Integer.valueOf(minLocA));
             restOfLocations.remove(Integer.valueOf(minLocB));
@@ -76,9 +84,14 @@ public class HeuristicSearchSolver implements Solver{
 
         final List<Integer> assignment = Arrays.stream(result).boxed().collect(Collectors.toList());
         final double cost = CostFunction.evaluate(instance, assignment);
-        return new
+        final long totalTimeMillis = System.currentTimeMillis() - start;
+        return new QAPSolution(cost, assignment, totalTimeMillis, 1, stepsCount);
 
-                QAPSolution(cost, assignment);
+    }
+
+    @Override
+    public String getName() {
+        return this.getClass().getSimpleName();
     }
 
 }

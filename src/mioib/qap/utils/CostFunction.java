@@ -12,7 +12,12 @@ public class CostFunction {
             for (int facilityB = 1; facilityB <= assignments.size(); facilityB++) {
                 int locationA = assignments.indexOf(facilityA) + 1;
                 int locationB = assignments.indexOf(facilityB) + 1;
-                cost += instance.getFlowWeight(facilityA, facilityB) * instance.getDistanceWeight(locationA, locationB);
+                if (facilityA == 0 || facilityB == 0 || locationA == 0 || locationB == 0) {
+                    continue;
+                }
+                final Double flowWeight = instance.getFlowWeight(facilityA, facilityB);
+                final Double distanceWeight = instance.getDistanceWeight(locationA, locationB);
+                cost += flowWeight * distanceWeight;
             }
         }
         return cost;

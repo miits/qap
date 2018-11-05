@@ -1,15 +1,15 @@
 package mioib.qap.solver;
 
+import mioib.qap.model.QAPInstance;
+import mioib.qap.model.QAPSolution;
 import mioib.qap.utils.CostFunction;
 import mioib.qap.utils.NeighbourhoodFunction;
 import mioib.qap.utils.RandomPermutationGenerator;
-import mioib.qap.model.QAPInstance;
-import mioib.qap.model.QAPSolution;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class SimulatedAnnealingSearchSolver implements Solver{
+public class SimulatedAnnealingSearchSolver implements Solver {
 
     private final QAPInstance instance;
     private final double alpha;
@@ -24,24 +24,31 @@ public class SimulatedAnnealingSearchSolver implements Solver{
     }
 
     public QAPSolution findSolution() {
+        final long start = System.currentTimeMillis();
+        long solutionsChecked = 0;
+        long stepsCount = 0;
         ArrayList<Integer> currentState = new RandomPermutationGenerator().generate(this.instance.getSize());
         double currentCost = CostFunction.evaluate(instance, currentState);
         double t = initTemp;
         for (int k = 0; k < kSteps; k++) {
             final ArrayList<Integer> neighbour = NeighbourhoodFunction.randomNeighbour(currentState);
             final double neighbourCost = CostFunction.evaluate(instance, neighbour);
+            solutionsChecked++;
             if (neighbourCost <= currentCost) {
                 currentState = neighbour;
                 currentCost = neighbourCost;
+                stepsCount++;
             } else {
                 if (p(currentCost, neighbourCost, t) > randomChance()) {
                     currentState = neighbour;
                     currentCost = neighbourCost;
+                    stepsCount++;
                 }
             }
             t = decreaseTemp(t);
         }
-        return new QAPSolution(currentCost, currentState);
+        final long totalTimeMillis = System.currentTimeMillis() - start;
+        return new QAPSolution(currentCost, currentState, totalTimeMillis, solutionsChecked, stepsCount);
     }
 
     private double randomChance() {
@@ -57,4 +64,8 @@ public class SimulatedAnnealingSearchSolver implements Solver{
         return actualTemp * alpha;
     }
 
+    @Override
+    public String getName() {
+        return this.getClass().getSimpleName();
+    }
 }

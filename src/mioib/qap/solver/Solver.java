@@ -6,4 +6,6 @@ public interface Solver {
 
     QAPSolution findSolution();
 
+    String getName();
+
 }

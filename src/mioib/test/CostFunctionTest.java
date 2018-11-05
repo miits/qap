@@ -3,6 +3,7 @@ package mioib.test;
 import mioib.qap.utils.CostFunction;
 import mioib.qap.utils.TestInstanceGenerator;
 import mioib.qap.model.QAPInstance;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -36,6 +37,34 @@ class CostFunctionTest {
         //then
         assertEquals(expectedCost, cost);
     }
+
+
+    @Test
+    @DisplayName("Should return correct cost for simpleInstance2 when not all locations assigned")
+    void shouldReturnCorrectCostForSimpleInstance2WhenNotAllLocationsAssigned() {
+        //given
+        final double expectedCost = 4;
+        final QAPInstance simpleInstance = TestInstanceGenerator.simpleInstance2();
+        final List<Integer> solution = Arrays.asList(1, 0, 2);
+        //when
+        final double cost = CostFunction.evaluate(simpleInstance, solution);
+        //then
+        assertEquals(expectedCost, cost);
+    }
+
+    @Test
+    @DisplayName("Should return correct cost for simpleInstance when not all locations assigned")
+    void shouldReturnCorrectCostForSimpleInstanceWhenNotAllLocationsAssigned() {
+        //given
+        final double expectedCost = 44;
+        final QAPInstance simpleInstance = TestInstanceGenerator.simpleInstance();
+        final List<Integer> solution = Arrays.asList(1, 0, 2);
+        //when
+        final double cost = CostFunction.evaluate(simpleInstance, solution);
+        //then
+        assertEquals(expectedCost, cost);
+    }
+
 
     @Test
     void shouldReturnCorrectCostForEveryPermutationInSimpleInstance2() {

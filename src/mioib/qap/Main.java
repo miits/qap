@@ -5,12 +5,20 @@ import mioib.qap.model.QAPSolution;
 import mioib.qap.solver.*;
 import mioib.qap.utils.TestInstanceGenerator;
 
+import java.util.ArrayList;
+
 public class Main {
 
     public static void main(String[] args) {
         QAPInstance instance = TestInstanceGenerator.Bur26a();
-        final Solver solver = new SimulatedAnnealingSearchSolver(instance, 0.98, 54_500, 1000);
-        final QAPSolution solution = solver.findSolution();
-        System.out.println(solution.getCost());
+        final ArrayList<Solver> solvers = new ArrayList<>();
+        solvers.add(new RandomSolver(instance, 2 * 1000));
+        solvers.add(new SteepestLocalSearchSolver(instance));
+        solvers.add(new GreedyLocalSearchSolver(instance));
+        solvers.add(new HeuristicSearchSolver(instance));
+        for (Solver solver : solvers) {
+            final QAPSolution solution = solver.findSolution();
+            System.out.println(String.format("%s - %s", solver.getName(), solution.statistics()));
+        }
     }
 }
