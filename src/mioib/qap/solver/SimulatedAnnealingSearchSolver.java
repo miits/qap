@@ -9,7 +9,7 @@ import mioib.qap.model.QAPSolution;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class SimulatedAnnealingSearchSolver {
+public class SimulatedAnnealingSearchSolver implements Solver{
 
     private final QAPInstance instance;
     private final double alpha;

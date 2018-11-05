@@ -8,7 +8,7 @@ import mioib.qap.model.QAPSolution;
 
 import java.util.ArrayList;
 
-public class SteepestLocalSearchSolver {
+public class SteepestLocalSearchSolver implements Solver{
 
     private final QAPInstance instance;
 

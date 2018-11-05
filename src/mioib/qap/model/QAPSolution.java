@@ -1,12 +1,13 @@
 package mioib.qap.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class QAPSolution {
     private final double cost;
-    private final ArrayList<Integer> assignment;
+    private final List<Integer> assignment;
 
-    public QAPSolution(double cost, ArrayList<Integer> assignment) {
+    public QAPSolution(double cost, List<Integer> assignment) {
         this.cost = cost;
         this.assignment = assignment;
     }
@@ -15,7 +16,7 @@ public class QAPSolution {
         return cost;
     }
 
-    public ArrayList<Integer> getAssignment() {
+    public List<Integer> getAssignment() {
         return assignment;
     }
 }

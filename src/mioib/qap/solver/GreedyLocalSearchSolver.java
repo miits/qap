@@ -8,7 +8,7 @@ import mioib.qap.model.QAPSolution;
 
 import java.util.ArrayList;
 
-public class GreedyLocalSearchSolver {
+public class GreedyLocalSearchSolver implements Solver{
 
     private final QAPInstance instance;
 

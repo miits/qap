@@ -7,7 +7,7 @@ import mioib.qap.model.QAPSolution;
 
 import java.util.ArrayList;
 
-public class RandomSolver {
+public class RandomSolver implements Solver{
 
     private final QAPInstance instance;
     private final int durationMillis;
