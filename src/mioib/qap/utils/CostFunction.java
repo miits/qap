@@ -1,4 +1,4 @@
-package mioib.qap;
+package mioib.qap.utils;
 
 import mioib.qap.model.QAPInstance;
 

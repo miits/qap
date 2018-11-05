@@ -1,6 +1,6 @@
 package mioib.test;
 
-import mioib.qap.TestInstanceGenerator;
+import mioib.qap.utils.TestInstanceGenerator;
 import mioib.qap.model.QAPInstance;
 import mioib.qap.model.QAPSolution;
 import mioib.qap.solver.SteepestLocalSearchSolver;

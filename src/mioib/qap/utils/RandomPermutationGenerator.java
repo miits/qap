@@ -1,4 +1,4 @@
-package mioib.qap;
+package mioib.qap.utils;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;

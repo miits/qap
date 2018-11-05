@@ -1,7 +1,7 @@
 package mioib.test;
 
-import mioib.qap.CostFunction;
-import mioib.qap.TestInstanceGenerator;
+import mioib.qap.utils.CostFunction;
+import mioib.qap.utils.TestInstanceGenerator;
 import mioib.qap.model.QAPInstance;
 import org.junit.jupiter.api.Test;
 

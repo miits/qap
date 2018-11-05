@@ -3,6 +3,7 @@ package mioib.qap;
 import mioib.qap.model.QAPInstance;
 import mioib.qap.model.QAPSolution;
 import mioib.qap.solver.RandomSolver;
+import mioib.qap.utils.TestInstanceGenerator;
 
 public class Main {
 

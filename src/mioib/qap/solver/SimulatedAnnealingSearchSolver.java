@@ -1,8 +1,8 @@
 package mioib.qap.solver;
 
-import mioib.qap.CostFunction;
-import mioib.qap.NeighbourhoodFunction;
-import mioib.qap.RandomPermutationGenerator;
+import mioib.qap.utils.CostFunction;
+import mioib.qap.utils.NeighbourhoodFunction;
+import mioib.qap.utils.RandomPermutationGenerator;
 import mioib.qap.model.QAPInstance;
 import mioib.qap.model.QAPSolution;
 

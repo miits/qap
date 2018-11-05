@@ -1,9 +1,8 @@
 package mioib.test;
 
-import mioib.qap.TestInstanceGenerator;
+import mioib.qap.utils.TestInstanceGenerator;
 import mioib.qap.model.QAPInstance;
 import mioib.qap.model.QAPSolution;
-import mioib.qap.solver.GreedyLocalSearchSolver;
 import mioib.qap.solver.SimulatedAnnealingSearchSolver;
 import org.junit.jupiter.api.Test;
 
