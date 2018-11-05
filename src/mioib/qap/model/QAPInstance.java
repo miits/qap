@@ -1,5 +1,6 @@
 package mioib.qap.model;
 
+import java.util.Objects;
 import java.util.Vector;
 
 public class QAPInstance {
@@ -32,5 +33,19 @@ public class QAPInstance {
         return size;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        QAPInstance that = (QAPInstance) o;
+        return size == that.size &&
+                Objects.equals(flowMatrix, that.flowMatrix) &&
+                Objects.equals(distanceMatrix, that.distanceMatrix);
+    }
 
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(size, flowMatrix, distanceMatrix);
+    }
 }

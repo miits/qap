@@ -2,15 +2,34 @@ package mioib.qap.utils;
 
 import mioib.qap.model.QAPInstance;
 
+import java.net.URL;
 import java.util.Arrays;
+import java.util.Scanner;
 import java.util.Vector;
 import java.util.stream.Collectors;
 
 public class TestInstanceGenerator {
 
 
-    public static QAPInstance fromFile(String path) {
-        throw new RuntimeException("TODO");
+    public static QAPInstance fromFile(String url) {
+        try (Scanner scanner = new Scanner(new URL(url).openStream())) {
+            final int size = Integer.parseInt(scanner.nextLine());
+            scanner.nextLine();
+            Vector<Vector<Double>> distanceMatrix = new Vector<>();
+            for (int i = 0; i < size; i++) {
+                distanceMatrix.add(strToVector(scanner.nextLine()));
+            }
+
+            scanner.nextLine();
+            Vector<Vector<Double>> flowMatrix = new Vector<>();
+            for (int i = 0; i < size; i++) {
+                flowMatrix.add(strToVector(scanner.nextLine()));
+            }
+            return new QAPInstance(size, flowMatrix, distanceMatrix);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
