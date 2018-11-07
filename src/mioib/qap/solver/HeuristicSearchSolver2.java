@@ -42,6 +42,7 @@ public class HeuristicSearchSolver2 implements Solver {
         restOfLocations.remove(randomStartLocation);
 
         result[randomStartLocation - 1] = randomStartFacility;
+        stepsCount++;
 
         //select next by max facility weight and min locations cost with already taken
         while (restOfFacilities.size() > 1) {
@@ -89,6 +90,7 @@ public class HeuristicSearchSolver2 implements Solver {
 
         if (restOfFacilities.size() == 1) {
             result[restOfLocations.get(0) - 1] = restOfFacilities.get(0);
+            stepsCount++;
         }
 
 

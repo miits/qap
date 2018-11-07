@@ -42,7 +42,7 @@ public class HeuristicSearchSolver3 implements Solver {
         restOfLocations.remove(randomStartLocation);
 
         result[randomStartLocation - 1] = randomStartFacility;
-
+        stepsCount++;
 
         while (restOfFacilities.size() > 1) {
             double maxFlow = -1;
@@ -62,25 +62,26 @@ public class HeuristicSearchSolver3 implements Solver {
                 }
             }
             double minCost = Double.MAX_VALUE;
-            Integer minLocation = -1;
+            Integer bestLocation = -1;
             for (Integer emptyLocation : restOfLocations) {
                 final int[] tmpResult = result.clone();
                 tmpResult[emptyLocation - 1] = maxFac;
                 final double tmpCost = CostFunction.evaluate(instance, tmpResult);
                 if (tmpCost < minCost) {
-                    minLocation = emptyLocation;
+                    bestLocation = emptyLocation;
                     minCost = tmpCost;
                 }
             }
-            result[minLocation - 1] = maxFac;
+            result[bestLocation - 1] = maxFac;
             stepsCount++;
 
-            restOfLocations.remove(minLocation);
+            restOfLocations.remove(bestLocation);
             restOfFacilities.remove(maxFac);
         }
 
         if (restOfFacilities.size() == 1) {
             result[restOfLocations.get(0) - 1] = restOfFacilities.get(0);
+            stepsCount++;
         }
 
 
