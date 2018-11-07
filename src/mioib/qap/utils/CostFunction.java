@@ -2,7 +2,9 @@ package mioib.qap.utils;
 
 import mioib.qap.model.QAPInstance;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CostFunction {
 
@@ -21,5 +23,10 @@ public class CostFunction {
             }
         }
         return cost;
+    }
+
+    public static double evaluate(QAPInstance instance, int[] assignments) {
+        final List<Integer> assignmentList = Arrays.stream(assignments).boxed().collect(Collectors.toList());
+        return CostFunction.evaluate(instance, assignmentList);
     }
 }
