@@ -16,8 +16,6 @@ public class Main {
         solvers.add(new SteepestLocalSearchSolver(instance));
         solvers.add(new GreedyLocalSearchSolver(instance));
         solvers.add(new HeuristicSearchSolver(instance));
-        solvers.add(new HeuristicSearchSolver2(instance));
-        solvers.add(new HeuristicSearchSolver3(instance));
         for (Solver solver : solvers) {
             final QAPSolution solution = solver.findSolution();
             System.out.println(String.format("%s - %s", solver.getName(), solution.statistics()));

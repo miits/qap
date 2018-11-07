@@ -6,6 +6,7 @@ import mioib.qap.utils.CostFunction;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -33,52 +34,54 @@ public class HeuristicSearchSolver implements Solver {
                 .boxed()
                 .collect(Collectors.toList());
 
+
+        //draw start facility and his location
+        final Integer randomStartFacility = restOfFacilities.get(ThreadLocalRandom.current().nextInt(instance.getSize()));
+        restOfFacilities.remove(randomStartFacility);
+        final Integer randomStartLocation = restOfLocations.get(ThreadLocalRandom.current().nextInt(instance.getSize()));
+        restOfLocations.remove(randomStartLocation);
+
+        result[randomStartLocation - 1] = randomStartFacility;
+        stepsCount++;
+
         while (restOfFacilities.size() > 1) {
             double maxFlow = -1;
-            int maxFacA = -1;
-            int maxFacB = -1;
-            final Integer facA = restOfFacilities.get(0);
-            restOfFacilities.remove(0);
-            for (Integer facB : restOfFacilities) {
-                final Double flowWeightAB = instance.getFlowWeight(facA, facB);
-                final Double flowWeightBA = instance.getFlowWeight(facB, facA);
-                if (flowWeightAB + flowWeightBA > maxFlow) {
-                    maxFlow = flowWeightAB + flowWeightBA;
-                    maxFacA = facA;
-                    maxFacB = facB;
-                }
-            }
-
-            double minDistance = Double.MAX_VALUE;
-            int minLocA = -1;
-            int minLocB = -1;
-            for (Integer locA : restOfLocations) {
-                for (Integer locB : restOfLocations) {
-                    if (locA.equals(locB)) {
+            Integer maxFac = -1;
+            for (Integer otherFacility : restOfFacilities) {
+                int flowCost = 0;
+                for (int takenFacility : result) {
+                    if (takenFacility == 0) {
                         continue;
                     }
-
-                    final Double distanceWeightAB = instance.getDistanceWeight(locA, locB);
-                    final Double distanceWeightBA = instance.getDistanceWeight(locB, locA);
-                    if (distanceWeightAB + distanceWeightBA < minDistance) {
-                        minDistance = distanceWeightAB + distanceWeightBA;
-                        minLocA = locA;
-                        minLocB = locB;
-                    }
+                    flowCost += instance.getFlowWeight(otherFacility, takenFacility);
+                    flowCost += instance.getFlowWeight(takenFacility, otherFacility);
+                }
+                if (flowCost > maxFlow) {
+                    maxFlow = flowCost;
+                    maxFac = otherFacility;
                 }
             }
-            result[minLocA - 1] = maxFacA;
-            stepsCount++;
-            result[minLocB - 1] = maxFacB;
+            double minCost = Double.MAX_VALUE;
+            Integer bestLocation = -1;
+            for (Integer emptyLocation : restOfLocations) {
+                final int[] tmpResult = result.clone();
+                tmpResult[emptyLocation - 1] = maxFac;
+                final double tmpCost = CostFunction.evaluate(instance, tmpResult);
+                if (tmpCost < minCost) {
+                    bestLocation = emptyLocation;
+                    minCost = tmpCost;
+                }
+            }
+            result[bestLocation - 1] = maxFac;
             stepsCount++;
 
-            restOfLocations.remove(Integer.valueOf(minLocA));
-            restOfLocations.remove(Integer.valueOf(minLocB));
-            restOfFacilities.remove(Integer.valueOf(maxFacB));
+            restOfLocations.remove(bestLocation);
+            restOfFacilities.remove(maxFac);
         }
 
         if (restOfFacilities.size() == 1) {
             result[restOfLocations.get(0) - 1] = restOfFacilities.get(0);
+            stepsCount++;
         }
 
 
