@@ -3,17 +3,15 @@ package mioib.qap.utils;
 import mioib.qap.model.QAPInstance;
 
 import java.net.URL;
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.Vector;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class TestInstanceGenerator {
 
 
-    public static QAPInstance fromFile(String url) {
+    public static QAPInstance fromFile(String url, List<Integer> optimalAssignment, String name) {
         try (Scanner scanner = new Scanner(new URL(url).openStream())) {
-            final int size = Integer.parseInt(scanner.nextLine());
+            final int size = Integer.parseInt(scanner.nextLine().trim());
             scanner.nextLine();
             Vector<Vector<Double>> distanceMatrix = new Vector<>();
             for (int i = 0; i < size; i++) {
@@ -25,12 +23,27 @@ public class TestInstanceGenerator {
             for (int i = 0; i < size; i++) {
                 flowMatrix.add(strToVector(scanner.nextLine()));
             }
-            return new QAPInstance(size, flowMatrix, distanceMatrix);
+            return new QAPInstance(name, size, flowMatrix, distanceMatrix, optimalAssignment);
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(url, e);
         }
     }
+
+
+    public static List<QAPInstance> selectedInstances() {
+        final ArrayList<QAPInstance> instances = new ArrayList<>();
+        instances.add(fromFile("http://anjos.mgi.polymtl.ca/qaplib/data.d/tai12a.dat", Arrays.asList(8, 1, 6, 2, 11, 10, 3, 5, 9, 7, 12, 4), "tail2a"));
+        instances.add(fromFile("http://anjos.mgi.polymtl.ca/qaplib/data.d/tai15a.dat", Arrays.asList(5, 10, 4, 13, 2, 9, 1, 11, 12, 14, 7, 15, 3, 8, 6), "tail5a"));
+        instances.add(fromFile("http://anjos.mgi.polymtl.ca/qaplib/data.d/tai17a.dat", Arrays.asList(12, 2, 6, 7, 4, 8, 14, 5, 11, 3, 16, 13, 17, 9, 1, 10, 15), "tail7a"));
+        instances.add(fromFile("http://anjos.mgi.polymtl.ca/qaplib/data.d/tai20a.dat", Arrays.asList(10, 9, 12, 20, 19, 3, 14, 6, 17, 11, 5, 7, 15, 16, 18, 2, 4, 8, 13, 1), "tail20a"));
+        instances.add(fromFile("http://anjos.mgi.polymtl.ca/qaplib/data.d/bur26b.dat", Arrays.asList(17, 11, 26, 7, 4, 14, 6, 22, 23, 18, 5, 9, 1, 21, 8, 12, 3, 19, 20, 15, 10, 25, 24, 16, 13, 2), "bur26b"));
+        instances.add(fromFile("http://anjos.mgi.polymtl.ca/qaplib/data.d/bur26c.dat", Arrays.asList(12, 3, 2, 13, 16, 25, 11, 15, 10, 9, 18, 19, 8, 20, 4, 21, 1, 5, 14, 24, 22, 6, 23, 7, 26, 17), "bur26c"));
+        instances.add(fromFile("http://anjos.mgi.polymtl.ca/qaplib/data.d/bur26g.dat", Arrays.asList(22, 11, 2, 23, 13, 25, 24, 8, 1, 21, 20, 4, 7, 18, 12, 15, 9, 19, 5, 26, 16, 6, 14, 3, 17, 10), "bur26g"));
+        instances.add(fromFile("http://anjos.mgi.polymtl.ca/qaplib/data.d/nug30.dat", Arrays.asList(5, 12, 6, 13, 2, 21, 26, 24, 10, 9, 29, 28, 17, 1, 8, 7, 19, 25, 23, 22, 11, 16, 30, 4, 15, 18, 27, 3, 14, 20), "nug30"));
+        return instances;
+    }
+
 
     /**
      * http://anjos.mgi.polymtl.ca/qaplib/data.d/bur26a.dat
@@ -93,7 +106,7 @@ public class TestInstanceGenerator {
         flowMatrix.add(strToVector("  0   1    1    2   10   0    1    1    1  0   4   0  30    8   3   9 0    3   13    1   0  0   1  1  0   0"));
         flowMatrix.add(strToVector(" 37   1    1    2  400   6   10    2  177  1   5  15   3    8  19   6 0    1    7   78 529  4 101  0  1   2"));
 
-        return new QAPInstance(size, flowMatrix, distanceMatrix);
+        return new QAPInstance("bur26a", size, flowMatrix, distanceMatrix, Arrays.asList(26, 15, 11, 7, 4, 12, 13, 2, 6, 18, 1, 5, 9, 21, 8, 14, 3, 20, 19, 25, 17, 10, 16, 24, 23, 22));
     }
 
     public static QAPInstance simpleInstance() {
@@ -108,7 +121,7 @@ public class TestInstanceGenerator {
         distanceMatrix.add(strToVector("4 5 6"));
         distanceMatrix.add(strToVector("1 2 3"));
 
-        return new QAPInstance(size, flowMatrix, distanceMatrix);
+        return new QAPInstance("simpleInstance", size, flowMatrix, distanceMatrix, null);
     }
 
     public static QAPInstance simpleInstance2() {
@@ -123,7 +136,7 @@ public class TestInstanceGenerator {
         distanceMatrix.add(strToVector("1 0 1"));
         distanceMatrix.add(strToVector("2 1 0"));
 
-        return new QAPInstance(size, flowMatrix, distanceMatrix);
+        return new QAPInstance("simpleInstance2", size, flowMatrix, distanceMatrix, null);
     }
 
     private static Vector<Double> strToVector(String str) {

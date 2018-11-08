@@ -1,6 +1,9 @@
 package mioib.qap.model;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class QAPSolution {
     private final double cost;
@@ -35,6 +38,27 @@ public class QAPSolution {
 
     public long getSolutionsChecked() {
         return solutionsChecked;
+    }
+
+
+    public String getTimeMillisString() {
+        return String.valueOf(timeMillis);
+    }
+
+    public String getStepsCountString() {
+        return String.valueOf(stepsCount);
+    }
+
+    public String getSolutionsCheckedString() {
+        return String.valueOf(solutionsChecked);
+    }
+
+    public String getCostString() {
+        return String.valueOf(cost);
+    }
+
+    public String getSolutionString() {
+        return Arrays.toString(assignment.toArray());
     }
 
     public String statistics() {
