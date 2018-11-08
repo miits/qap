@@ -18,23 +18,21 @@ public class BenchmarkRunner {
     private final QAPInstance instance;
     private final List<String> HEADERS = Arrays.asList("timeMillis", "stepsCount", "solutionsChecked", "cost", "solution", "optimalSolutionCost", "optimalSolution");
     private final String workDir;
+    private final String instanceDir;
 
     public BenchmarkRunner(QAPInstance instance, String workDir) {
         this.instance = instance;
         this.workDir = workDir;
-
-        final File file = new File(workDir);
-        if (!file.exists()) {
-            if (!file.mkdir()) {
-                throw new RuntimeException("Unable to create dir");
-            }
-        }
+        this.instanceDir = workDir + "/" + instance.getName();
+        createWorkDir();
+        createInstanceDir();
     }
+
 
     public void runBenchmark() throws IOException {
         long steepestTimeSum = 0;
         //steepest
-        String csvFile = workDir + "/steepest.csv";
+        String csvFile = instanceDir + "/steepest.csv";
         FileWriter writer = new FileWriter(csvFile);
         CSVUtils.writeLine(writer, HEADERS);
         for (int i = 0; i < N_RUNS; i++) {
@@ -49,7 +47,7 @@ public class BenchmarkRunner {
 
         //greedy
         long greedyTimeSum = 0;
-        csvFile = workDir + "/greedy.csv";
+        csvFile = instanceDir + "/greedy.csv";
         writer = new FileWriter(csvFile);
         CSVUtils.writeLine(writer, HEADERS);
         for (int i = 0; i < N_RUNS; i++) {
@@ -64,7 +62,7 @@ public class BenchmarkRunner {
 
         //random
         int randomDurationMillis = (int) (avgGreedyTimeMillis + avgSteepestTimeMillis) / 2;
-        csvFile = workDir + "/random.csv";
+        csvFile = instanceDir + "/random.csv";
         writer = new FileWriter(csvFile);
         CSVUtils.writeLine(writer, HEADERS);
         for (int i = 0; i < N_RUNS; i++) {
@@ -76,7 +74,7 @@ public class BenchmarkRunner {
         writer.close();
 
         //heuristic
-        csvFile = workDir + "/heuristic.csv";
+        csvFile = instanceDir + "/heuristic.csv";
         writer = new FileWriter(csvFile);
         CSVUtils.writeLine(writer, HEADERS);
         for (int i = 0; i < N_RUNS; i++) {
@@ -100,5 +98,22 @@ public class BenchmarkRunner {
         return line;
     }
 
+    private void createWorkDir() {
+        final File file = new File(workDir);
+        if (!file.exists()) {
+            if (!file.mkdir()) {
+                throw new RuntimeException("Unable to create dir");
+            }
+        }
+    }
+
+    private void createInstanceDir() {
+        final File file = new File(instanceDir);
+        if (!file.exists()) {
+            if (!file.mkdir()) {
+                throw new RuntimeException("Unable to create dir");
+            }
+        }
+    }
 
 }

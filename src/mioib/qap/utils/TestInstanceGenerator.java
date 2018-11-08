@@ -38,9 +38,9 @@ public class TestInstanceGenerator {
         instances.add(fromFile("http://anjos.mgi.polymtl.ca/qaplib/data.d/tai17a.dat", Arrays.asList(12, 2, 6, 7, 4, 8, 14, 5, 11, 3, 16, 13, 17, 9, 1, 10, 15), "tail7a"));
         instances.add(fromFile("http://anjos.mgi.polymtl.ca/qaplib/data.d/tai20a.dat", Arrays.asList(10, 9, 12, 20, 19, 3, 14, 6, 17, 11, 5, 7, 15, 16, 18, 2, 4, 8, 13, 1), "tail20a"));
         instances.add(fromFile("http://anjos.mgi.polymtl.ca/qaplib/data.d/bur26b.dat", Arrays.asList(17, 11, 26, 7, 4, 14, 6, 22, 23, 18, 5, 9, 1, 21, 8, 12, 3, 19, 20, 15, 10, 25, 24, 16, 13, 2), "bur26b"));
-        instances.add(fromFile("http://anjos.mgi.polymtl.ca/qaplib/data.d/bur26c.dat", Arrays.asList(12, 3, 2, 13, 16, 25, 11, 15, 10, 9, 18, 19, 8, 20, 4, 21, 1, 5, 14, 24, 22, 6, 23, 7, 26, 17), "bur26c"));
+        instances.add(fromFile("http://anjos.mgi.polymtl.ca/qaplib/data.d/bur26e.dat", Arrays.asList(14, 4, 13, 7, 16, 25, 26, 17, 1, 15, 12, 20, 18, 19, 3, 8, 21, 9, 5, 24, 6, 10, 22, 2, 23, 11), "bur26e"));
         instances.add(fromFile("http://anjos.mgi.polymtl.ca/qaplib/data.d/bur26g.dat", Arrays.asList(22, 11, 2, 23, 13, 25, 24, 8, 1, 21, 20, 4, 7, 18, 12, 15, 9, 19, 5, 26, 16, 6, 14, 3, 17, 10), "bur26g"));
-        instances.add(fromFile("http://anjos.mgi.polymtl.ca/qaplib/data.d/nug30.dat", Arrays.asList(5, 12, 6, 13, 2, 21, 26, 24, 10, 9, 29, 28, 17, 1, 8, 7, 19, 25, 23, 22, 11, 16, 30, 4, 15, 18, 27, 3, 14, 20), "nug30"));
+        instances.add(fromFile("http://anjos.mgi.polymtl.ca/qaplib/data.d/nug28.dat", Arrays.asList(18, 21, 9, 1, 28, 20, 11, 3, 13, 12, 10, 19, 14, 22, 15, 2, 25, 16, 4, 23, 7, 17, 24, 26, 5, 27, 8, 6), "nug28"));
         return instances;
     }
 

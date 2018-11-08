@@ -14,9 +14,9 @@ public class Main {
         for (QAPInstance instance : instances) {
             final long start = System.currentTimeMillis();
             System.out.println("Instance: " + instance.getName());
-            final BenchmarkRunner benchmarkRunner = new BenchmarkRunner(instance, instance.getName());
+            final BenchmarkRunner benchmarkRunner = new BenchmarkRunner(instance, "result");
             benchmarkRunner.runBenchmark();
-            System.out.println("Total time: " + (System.currentTimeMillis() - start));
+            System.out.println("Total time: " + (System.currentTimeMillis() - start) + " [ms]");
         }
     }
 }
