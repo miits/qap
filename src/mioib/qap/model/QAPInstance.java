@@ -45,7 +45,7 @@ public class QAPInstance {
     }
 
     public String getOptimalSolutionString() {
-        return Arrays.toString(optimalAssignment.toArray());
+        return "'" + Arrays.toString(optimalAssignment.toArray()) + "'";
     }
 
 
