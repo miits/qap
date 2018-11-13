@@ -5,14 +5,18 @@ import java.util.List;
 
 public class QAPSolution {
     private final double cost;
+    private final double firstAssignmentCost;
     private final List<Integer> assignment;
+    private final List<Integer> firstAssignment;
     private final long timeMillis;
     private final long stepsCount;
     private final long solutionsChecked;
 
-    public QAPSolution(double cost, List<Integer> assignment, long timeMillis, long solutionsChecked, long stepsCount) {
+    public QAPSolution(double cost, double firstAssignmentCost, List<Integer> assignment, List<Integer> firstAssignment, long timeMillis, long solutionsChecked, long stepsCount) {
         this.cost = cost;
+        this.firstAssignmentCost = firstAssignmentCost;
         this.assignment = assignment;
+        this.firstAssignment = firstAssignment;
         this.timeMillis = timeMillis;
         this.solutionsChecked = solutionsChecked;
         this.stepsCount = stepsCount;
@@ -57,6 +61,14 @@ public class QAPSolution {
 
     public String getSolutionString() {
         return "'" + Arrays.toString(assignment.toArray()) + "'";
+    }
+
+    public String getFirstAssignmentCost() {
+        return String.valueOf(firstAssignmentCost);
+    }
+
+    public String getFirstAssignmentString() {
+        return "'" + Arrays.toString(firstAssignment.toArray()) + "'";
     }
 
     public String statistics() {

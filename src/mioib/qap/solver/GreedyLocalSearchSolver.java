@@ -7,6 +7,7 @@ import mioib.qap.utils.NeighbourhoodFunction;
 import mioib.qap.utils.RandomPermutationGenerator;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GreedyLocalSearchSolver implements Solver {
 
@@ -17,6 +18,8 @@ public class GreedyLocalSearchSolver implements Solver {
     }
 
     public QAPSolution findSolution() {
+        List<Integer> firstAssignment = null;
+        double firstAssignmentCost = -1;
         final long start = System.currentTimeMillis();
         long solutionsChecked = 0;
         long stepsCount = 0;
@@ -31,6 +34,10 @@ public class GreedyLocalSearchSolver implements Solver {
                 if (n.equals(previousBest)) continue;
                 double nScore = CostFunction.evaluate(this.instance, n);
                 solutionsChecked++;
+                if (firstAssignment == null) {
+                    firstAssignmentCost = nScore;
+                    firstAssignment = n;
+                }
                 if (nScore < bestScore) {
                     previousBest.clear();
                     previousBest.addAll(best);
@@ -42,7 +49,7 @@ public class GreedyLocalSearchSolver implements Solver {
             }
         }
         final long totalTimeMillis = System.currentTimeMillis() - start;
-        return new QAPSolution(bestScore, best, totalTimeMillis, solutionsChecked, stepsCount);
+        return new QAPSolution(bestScore, firstAssignmentCost, best, firstAssignment, totalTimeMillis, solutionsChecked, stepsCount);
     }
 
     @Override

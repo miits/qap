@@ -14,9 +14,9 @@ import java.util.List;
 
 public class BenchmarkRunner {
 
-    private static final int N_RUNS = 10;
+    private static final int N_RUNS = 500;
     private final QAPInstance instance;
-    private final List<String> HEADERS = Arrays.asList("timeMillis", "stepsCount", "solutionsChecked", "cost", "solution", "optimalSolutionCost", "optimalSolution");
+    private final List<String> HEADERS = Arrays.asList("timeMillis", "stepsCount", "solutionsChecked", "cost", "solution", "optimalSolutionCost", "optimalSolution", "firstSolutionCost", "firstSolution");
     private final String workDir;
     private final String instanceDir;
 
@@ -95,6 +95,8 @@ public class BenchmarkRunner {
         line.add(solution.getSolutionString());
         line.add(instance.getOptimalSolutionCostString());
         line.add(instance.getOptimalSolutionString());
+        line.add(solution.getFirstAssignmentCost());
+        line.add(solution.getFirstAssignmentString());
         return line;
     }
 

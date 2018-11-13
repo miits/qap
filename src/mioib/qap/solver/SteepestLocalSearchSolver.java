@@ -7,6 +7,7 @@ import mioib.qap.utils.NeighbourhoodFunction;
 import mioib.qap.utils.RandomPermutationGenerator;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SteepestLocalSearchSolver implements Solver {
 
@@ -17,6 +18,8 @@ public class SteepestLocalSearchSolver implements Solver {
     }
 
     public QAPSolution findSolution() {
+        List<Integer> firstAssignment = null;
+        double firstAssignmentCost = -1;
         final long start = System.currentTimeMillis();
         long solutionsChecked = 0;
         long stepsCount = 0;
@@ -30,6 +33,10 @@ public class SteepestLocalSearchSolver implements Solver {
             for (ArrayList<Integer> n : NeighbourhoodFunction.getNeighbourhood(this.instance, best)) {
                 if (n.equals(previousBest)) continue;
                 double nScore = CostFunction.evaluate(this.instance, n);
+                if (firstAssignment == null) {
+                    firstAssignmentCost = nScore;
+                    firstAssignment = n;
+                }
                 solutionsChecked++;
                 if (nScore < bestScore) {
                     previousBest.clear();
@@ -41,7 +48,7 @@ public class SteepestLocalSearchSolver implements Solver {
             }
         }
         final long totalTimeMillis = System.currentTimeMillis() - start;
-        return new QAPSolution(bestScore, best, totalTimeMillis, solutionsChecked, stepsCount);
+        return new QAPSolution(bestScore, firstAssignmentCost, best, firstAssignment, totalTimeMillis, solutionsChecked, stepsCount);
     }
 
     @Override

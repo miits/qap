@@ -88,7 +88,7 @@ public class HeuristicSearchSolver implements Solver {
         final List<Integer> assignment = Arrays.stream(result).boxed().collect(Collectors.toList());
         final double cost = CostFunction.evaluate(instance, assignment);
         final long totalTimeMillis = System.currentTimeMillis() - start;
-        return new QAPSolution(cost, assignment, totalTimeMillis, 1, stepsCount);
+        return new QAPSolution(cost, cost, assignment, assignment, totalTimeMillis, 1, stepsCount);
 
     }
 

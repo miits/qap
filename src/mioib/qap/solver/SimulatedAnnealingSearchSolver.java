@@ -48,7 +48,7 @@ public class SimulatedAnnealingSearchSolver implements Solver {
             t = decreaseTemp(t);
         }
         final long totalTimeMillis = System.currentTimeMillis() - start;
-        return new QAPSolution(currentCost, currentState, totalTimeMillis, solutionsChecked, stepsCount);
+        return new QAPSolution(currentCost, -1, currentState, null, totalTimeMillis, solutionsChecked, stepsCount);
     }
 
     private double randomChance() {

@@ -6,6 +6,7 @@ import mioib.qap.utils.CostFunction;
 import mioib.qap.utils.RandomPermutationGenerator;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RandomSolver implements Solver {
 
@@ -20,6 +21,8 @@ public class RandomSolver implements Solver {
     }
 
     public QAPSolution findSolution() {
+        List<Integer> firstAssignment = null;
+        double firstAssignmentCost = -1;
         long solutionsChecked = 0;
         long stepsCount = 0;
         final long start = System.currentTimeMillis();
@@ -30,12 +33,16 @@ public class RandomSolver implements Solver {
             stepsCount++;
             final ArrayList<Integer> nextSolution = permutationGenerator.generate(instance.getSize());
             final double nextSolutionCost = CostFunction.evaluate(instance, nextSolution);
+            if (firstAssignment == null) {
+                firstAssignmentCost = nextSolutionCost;
+                firstAssignment = nextSolution;
+            }
             if (nextSolutionCost < bestCost) {
                 bestCost = nextSolutionCost;
                 bestSolution = nextSolution;
             }
         }
-        return new QAPSolution(bestCost, bestSolution, this.durationMillis, solutionsChecked, stepsCount);
+        return new QAPSolution(bestCost, firstAssignmentCost, bestSolution, firstAssignment, durationMillis, solutionsChecked, stepsCount);
     }
 
     @Override
