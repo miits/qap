@@ -38,6 +38,7 @@ public class TabuSearchSolver implements Solver {
             ArrayList<Candidate> candidates = new ArrayList<>(neighbours.size());
             for (ArrayList<Integer> neighbour : neighbours) {
                 candidates.add(new Candidate(CostFunction.evaluate(instance, neighbour), neighbour));
+                solutionsChecked++;
             }
             candidates.sort(Comparator.comparingDouble(value -> value.score));
             final List<Candidate> topKCandidates = candidates.subList(0, kCandidates);
@@ -49,7 +50,6 @@ public class TabuSearchSolver implements Solver {
                     }
                     currentState = topKCandidate.solution;
                     currentCost = topKCandidate.score;
-                    solutionsChecked++;
                     stepsWithoutImprovement = 0;
                 } else {
                     stepsWithoutImprovement++;
