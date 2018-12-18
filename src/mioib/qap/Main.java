@@ -10,7 +10,7 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        final List<QAPInstance> instances = TestInstanceGenerator.selectedInstances().subList(0,2);
+        final List<QAPInstance> instances = TestInstanceGenerator.selectedInstances();
         for (QAPInstance instance : instances) {
             final long start = System.currentTimeMillis();
             System.out.println("Instance: " + instance.getName());
