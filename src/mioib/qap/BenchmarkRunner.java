@@ -32,6 +32,7 @@ public class BenchmarkRunner {
     public void runBenchmark() throws IOException {
         long steepestTimeSum = 0;
         //steepest
+        System.out.println("Steepest");
         String csvFile = instanceDir + "/steepest.csv";
         FileWriter writer = new FileWriter(csvFile);
         CSVUtils.writeLine(writer, HEADERS);
@@ -46,6 +47,7 @@ public class BenchmarkRunner {
         writer.close();
 
         //greedy
+        System.out.println("Greedy");
         long greedyTimeSum = 0;
         csvFile = instanceDir + "/greedy.csv";
         writer = new FileWriter(csvFile);
@@ -61,6 +63,7 @@ public class BenchmarkRunner {
 
 
         //random
+        System.out.println("Random");
         int randomDurationMillis = (int) (avgGreedyTimeMillis + avgSteepestTimeMillis) / 2;
         csvFile = instanceDir + "/random.csv";
         writer = new FileWriter(csvFile);
@@ -74,11 +77,38 @@ public class BenchmarkRunner {
         writer.close();
 
         //heuristic
+        System.out.println("Heuristic");
         csvFile = instanceDir + "/heuristic.csv";
         writer = new FileWriter(csvFile);
         CSVUtils.writeLine(writer, HEADERS);
         for (int i = 0; i < N_RUNS; i++) {
             final Solver solver = new HeuristicSearchSolver(instance);
+            final QAPSolution solution = solver.findSolution();
+            final List<String> line = createLineFromSolution(solution);
+            CSVUtils.writeLine(writer, line);
+        }
+        writer.close();
+
+        //tabu
+        System.out.println("Tabu");
+        csvFile = instanceDir + "/tabu.csv";
+        writer = new FileWriter(csvFile);
+        CSVUtils.writeLine(writer, HEADERS);
+        for (int i = 0; i < N_RUNS; i++) {
+            final Solver solver = new TabuSearchSolver(instance, 10);
+            final QAPSolution solution = solver.findSolution();
+            final List<String> line = createLineFromSolution(solution);
+            CSVUtils.writeLine(writer, line);
+        }
+        writer.close();
+
+        //simulated annealing
+        System.out.println("Annealing");
+        csvFile = instanceDir + "/annealing.csv";
+        writer = new FileWriter(csvFile);
+        CSVUtils.writeLine(writer, HEADERS);
+        for (int i = 0; i < N_RUNS; i++) {
+            final Solver solver = new SimulatedAnnealingSearchSolver(instance, 0.9, 950000, 5, 10);
             final QAPSolution solution = solver.findSolution();
             final List<String> line = createLineFromSolution(solution);
             CSVUtils.writeLine(writer, line);
