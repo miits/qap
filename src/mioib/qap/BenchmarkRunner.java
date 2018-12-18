@@ -108,7 +108,7 @@ public class BenchmarkRunner {
         writer = new FileWriter(csvFile);
         CSVUtils.writeLine(writer, HEADERS);
         for (int i = 0; i < N_RUNS; i++) {
-            final Solver solver = new SimulatedAnnealingSearchSolver(instance, 0.9, 950000, 5, 10);
+            final Solver solver = new SimulatedAnnealingSearchSolver(instance, 0.98, 950000, 20, 10);
             final QAPSolution solution = solver.findSolution();
             final List<String> line = createLineFromSolution(solution);
             CSVUtils.writeLine(writer, line);
