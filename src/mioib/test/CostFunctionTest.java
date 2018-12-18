@@ -38,6 +38,20 @@ class CostFunctionTest {
         assertEquals(expectedCost, cost);
     }
 
+    @Test
+    void shouldReturnCorrectDeltaForSimpleInstance() {
+        //given
+        final QAPInstance simpleInstance = TestInstanceGenerator.simpleInstance();
+        final List<Integer> solution1 = Arrays.asList(1, 2, 3);
+        final double cost1 = CostFunction.evaluate(simpleInstance, solution1);
+        final List<Integer> solution2 = Arrays.asList(2, 1, 3);
+        final double cost2 = CostFunction.evaluate(simpleInstance, solution2);
+        final double diff = cost2 - cost1;
+        //when
+        final double delta = CostFunction.evaluateDelta(simpleInstance, solution1, 1, 2);
+        //then
+        assertEquals(diff, delta);
+    }
 
     @Test
     @DisplayName("Should return correct cost for simpleInstance2 when not all locations assigned")
